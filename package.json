@@ -1,0 +1,30 @@
+{
+	"name": "sse-demo",
+	"version": "1.0.0",
+	"description": "A simple demonstration of Server-Sent Events (SSE) with Node.js and Express.",
+	"main": "server.js",
+	"keywords": [
+		"sse",
+		"server-sent-events",
+		"express",
+		"nodejs"
+	],
+	"scripts": {
+		"start": "concurrently \"npm:serve\" \"npm:open\"",
+		"serve": "node server.js",
+		"open": "start http://localhost:3000"
+	},
+	"author": "Zhang kun",
+	"license": "ISC",
+	"dependencies": {
+		"cors": "^2.8.5",
+		"express": "^4.17.1"
+	},
+	"parserOptions": {
+		"ecmaVersion": 2015
+	},
+	"devDependencies": {
+		"@types/cors": "^2.8.17",
+		"@types/express": "^4.17.21"
+	}
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>EventSource 示例</title>
+</head>
+
+<body>
+    <h2>服务器发送的消息：</h2>
+    <ul id="messages"></ul>
+
+    <script>
+        // 创建一个指向你的服务器端点的 EventSource 实例
+        var eventSource = new EventSource('http://localhost:3000/events');
+
+        // 使用 onmessage 事件监听器来接收消息
+        eventSource.onmessage = function (event) {
+            // 获取消息列表的元素
+            var messagesElement = document.getElementById('messages');
+
+            // 创建一个新的列表项元素，并设置其内容为接收到的消息
+            var messageElement = document.createElement('li');
+            messageElement.textContent = event.data;
+
+            // 将新的列表项添加到消息列表中
+            messagesElement.appendChild(messageElement);
+        };
+
+        // 监听错误事件
+        eventSource.onerror = function (error) {
+            console.error('EventSource failed:', error);
+            // 在出现错误时关闭 EventSource
+            eventSource.close();
+        };
+    </script>
+</body>
+
+</html>
