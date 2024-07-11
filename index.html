@@ -12,16 +12,22 @@
 
     <script>
         // 创建一个指向你的服务器端点的 EventSource 实例
-        var eventSource = new EventSource('http://localhost:3000/events');
+        const eventSource = new EventSource('http://localhost:3900/events');
 
         // 使用 onmessage 事件监听器来接收消息
         eventSource.onmessage = function (event) {
             // 获取消息列表的元素
-            var messagesElement = document.getElementById('messages');
+            const messagesElement = document.getElementById('messages');
 
             // 创建一个新的列表项元素，并设置其内容为接收到的消息
-            var messageElement = document.createElement('li');
-            messageElement.textContent = event.data;
+            const messageElement = document.createElement('li');
+            // 确保去除可能的前后空格
+            const dateStr = event.data.split('时间:')[1].trim();
+            const dateAfter = new Date(dateStr).toLocaleString();
+            //2024/7/11 20:15:38 ---> 2024-7-11 20:15:38
+            const formattedDate = new Date(dateAfter).toISOString().replace('T', ' ').substring(0, 19);
+            // console.log(`格式化的日期: ${formattedDate}`);
+            messageElement.textContent = formattedDate;
 
             // 将新的列表项添加到消息列表中
             messagesElement.appendChild(messageElement);
